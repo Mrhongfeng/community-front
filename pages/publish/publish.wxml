@@ -1,0 +1,139 @@
+<!-- 新建活动 -->
+<view class="container" style="opacity: 0;margin-left:400px;" animation="{{slide}}">
+<view class="add-page">
+  <form bindsubmit="submitForm">
+    <view class="toptips" style="opacity: 0" animation="{{fade}}">
+    {{TopTips}}</view>
+    <view class="mod-a">
+      <!-- 活动主题 -->
+      <view class="mod t-name">
+        <text class="key">活动名称</text>
+        <input name="title" class="input" maxlength="12" placeholder="活动名称字数限制：10" value="{{title}}" />
+      </view>
+    </view>
+
+    <view class="mod-a mt20">
+      <!-- 活动地点 -->
+      <view class="mod t-name">
+        <text class="key">活动地点</text>
+        <input name="location" class="input" maxlength="20" placeholder="活动地点字数限制：20" value="{{location}}" />
+      </view>
+      <!-- 活动类别 -->
+      <view class="mod t-sign-time">
+        <text class="key">活动类别</text>
+        <picker bindchange="bindTypeChange" value="{{typeIndex}}" range="{{types}}">
+          <view class="value" name="types">{{types[typeIndex]}}
+            <!-- <image class="arrow-r" src="/static/images/arrow-r-0.png"></image> -->
+          </view>
+        </picker>
+      </view>
+      <!-- 有效时间 -->
+      <view class="mod t-sign-time">
+        <text class="key">活动开始时间</text>
+        <picker mode="date" value="{{sdate}}" start="{{date}}" end="2020-09-01" bindchange="bindDateChange1">
+          <view class="value" name="endtime1">{{sdate}}
+          </view>
+        </picker>/
+        <picker mode="time" value="{{stime}}" start="08:00" end="07:59" bindchange="bindTimeChange1">
+          <view class="value" name="endhour1">{{stime}}</view>
+        </picker>
+      </view>
+      <view class="mod t-sign-time">
+        <text class="key">活动结束时间</text>
+        <picker mode="date" value="{{edate}}" start="{{date}}" end="2020-09-01" bindchange="bindDateChange2">
+          <view class="value" name="endtime2">{{edate}}</view>
+        </picker>/
+        <picker mode="time" value="{{etime}}" start="08:00" end="07:59" bindchange="bindTimeChange2">
+          <view class="value" name="endhour2">{{etime}}</view>
+        </picker>
+      </view>
+
+      <!-- 限制人数 -->
+      <view class="mod  t-early">
+        <text class="key">限制人数</text>
+        <switch type="switch" bindchange="switch1Change" name="switch1Hide" />
+      </view>
+      <!-- 人数设置 -->
+      <view wx:if="{{peopleHide}}">
+        <view class="mod t-name">
+          <text class="key">人数上限</text>
+          <input name="peoplenum" type="number" class="input" maxlength="3" placeholder='请输入人数' value="{{peoplenum}}" />
+        </view>
+      </view>
+      <!-- 限制积分 -->
+      <view class="mod  t-early">
+        <text class="key">限制积分</text>
+        <switch type="switch" bindchange="switch2Change" name="switch2Hide" />
+      </view>
+      <!-- 积分设置 -->
+      <view wx:if="{{creditHide}}">
+        <view class="mod t-name">
+          <text class="key">积分门槛</text>
+          <input name="creditnum" type="number" class="input" maxlength="3" placeholder='请输入积分门槛' value="{{creditnum}}" />
+        </view>
+      </view>
+    <!-- 积分奖励 -->
+      <view class="mod t-name">
+        <text class="key">积分奖励</text>
+        <input name="creditnum" type="number" class="input" maxlength="3" placeholder='请输入积分奖励' value="{{awardnum}}" />
+      </view>
+    </view>
+    <!-- 活动内容 -->
+    <view class="mod-a mt20">
+      <view class="mod-big my-nick">
+        <textarea name="content" class="weui-textarea" placeholder="请输入活动内容简介" value="{{content}}" style="height: 7em" bindinput="bindTextAreaChange" maxlength="{{noteMaxLen}}" />
+        <view class="chnumber">{{noteNowLen}}/{{noteMaxLen}}</view>
+      </view>
+    </view>
+    <!-- <view class="add_pic" bindtap="uploadPic" wx-if="{{!isSrc}}">
+      <view>添加图片（选填）</view>
+    </view>
+    <view wx:if="{{isSrc}}" class="image_box">
+      <view class="picPre">
+        <image src="{{src}}" mode="aspectFit"></image>
+        <view bindtap="clearPic"></view>
+      </view>
+    </view> -->
+    <view class="mod-a mt20"></view>
+    <view class="mt20 read">
+     <view class="agree" style="padding-left:10rpx;">
+      <checkbox-group style="display: inline-block"
+      bindchange="bindAgreeChange">
+        <label class="weui-agree" for="weuiAgree">
+          <checkbox id="weuiAgree" 
+          value="agree" checked="{{isAgree}}" />
+        </label>
+      </checkbox-group>
+      <text>阅读并同意</text>
+      <strong bindtap="showNotice" style="color:red">《社区活动系统活动发起须知》</strong>
+     </view>
+      <view class="submit-btn">
+        <button class='button' loading="{{isLoading}}" hover-start-time="200" 
+        disabled="{{isdisabled}}" formType="submit">发起申请</button>
+      </view>
+    </view>
+  </form>
+</view>
+
+<view class="notice" id="notice" wx:if="{{notice_status}}" bindtap="tapNotice">
+        <view class="box">
+          <view class="box-hd">
+            <text class="box-title">发起活动须知</text>
+            <!-- <image class="box-close" src="/static/images/more/close.png" bindtap="hideNotice"></image> -->
+            <icon class="box-close" type='cancel' bindtap='hideNotice'></icon>
+          </view>
+          <view class="box-bd">
+            <view class="notice-q">1.关于活动发起</view>
+            <view class="notice-a">
+              <text>所有活动在由活动组织者发起后将由审核人员进行统一审核。</text>
+              <text>审核结果将在三个工作日内反馈给发起人员，具体结果请关注微信小程序推送~</text>
+              <text>若对审核结果有疑问，请及时联系审核人员。</text>
+            </view>
+            <view class="notice-q">2.关于发起内容</view>
+            <view class="notice-a">
+              <text>活动内容应当符合法律允许，若内容违反相关法律法规，一经发现，本软件有权对该用户进行封号处理。</text>
+            </view>
+          </view>
+        </view>
+      </view>
+</view>

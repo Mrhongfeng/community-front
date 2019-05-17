@@ -1,0 +1,10 @@
+{
+  "navigationBarTextStyle": "white",
+  "navigationBarBackgroundColor": "#2379de",
+  "navigationBarTitleText": "社区活动",
+  "backgroundColor": "#9e9da6",
+  "enablePullDownRefresh": true,
+  "backgroundTextStyle": "dark",
+  "usingComponents":{
+  }
+}

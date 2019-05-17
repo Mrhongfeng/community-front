@@ -1,0 +1,41 @@
+{
+  "pages": [
+    "pages/login/login",
+    "pages/details/showDetails",
+    "pages/publish/publish",
+    "pages/index/index",
+    "pages/audit/audit",
+    "pages/review/review",
+    "pages/role/role",
+    "pages/collect/collect",
+    "pages/self/self"
+  ],
+  "window": {
+    "backgroundTextStyle": "light",
+    "navigationBarBackgroundColor": "#fff",
+    "navigationBarTitleText": "社区活动管理",
+    "navigationBarTextStyle": "black"
+  },
+  "tabBar": {
+    "custom": true,
+    "color": "#242424",
+    "selectedColor": "#fa8582",
+    "backgroundColor": "#ff000000",
+    "borderStyle": "white",
+    "list": [
+      {
+        "pagePath": "pages/index/index",
+        "text": "首页",
+        "iconPath": "/images/fir.png",
+        "selectedIconPath": "/images/fir_f.png"
+      },
+      {
+        "pagePath": "pages/self/self",
+        "text": "我的",
+        "iconPath": "/images/my.png",
+        "selectedIconPath": "/images/my_f.png"
+      }
+    ]
+  },
+  "sitemapLocation": "sitemap.json"
+}

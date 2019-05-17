@@ -1,0 +1,99 @@
+<view class="outer"  style="opacity: 0;margin-left:400px;" animation="{{slide}}">
+  <view style="padding: 0;">
+    <!-- 搜索 -->
+    <view class="weui-search-bar">
+      <view class="weui-search-bar__form">
+        <!-- 编辑时的搜索框 -->
+        <view class="weui-search-bar__box">
+          <icon class="weui-icon-search_in-box" type="search" 
+          size="14" bindtap="goSearch"></icon>
+          <input type="text" class="weui-search-bar__input" 
+          placeholder="Search" value="{{inputVal}}" 
+          bindconfirm="goSearch" bindinput="getVal" />
+        </view>
+        <!-- 初始时的搜索框 -->
+        <view class="weui-search-bar__label" hidden="{{inputShowed}}" 
+        bindtap="showInput">
+          <icon class="weui-icon-search" type="search" 
+          size="14"></icon>
+          <view class="weui-search-bar__text">搜索</view>
+        </view>
+      </view>
+      <!-- 取消搜索 -->
+      <view class="weui-search-bar__cancel-btn" hidden="{{!inputShowed}}" 
+      bindtap="hideInput">取消</view>
+    </view>
+    <!-- 筛选条件 -->
+    <view class="condition">
+      <view class="tab-box">
+        <view wx:for="{{tab}}" wx:key="index">
+          <view class="tab-items {{current==index?'select':'removeSelect'}}" 
+          bindtap="loadaffairs" data-index="{{index}}">
+            {{item}}
+          </view>
+        </view>
+      </view>
+    </view>
+    <!-- 展示主体 -->
+    <view>
+    <scroll-view style="background: white">
+      <view class="showPanel">
+        <view class="showContent" wx:for="{{affairsList}}" wx:key="index" bindtap="showDetail" id="{{item.id}}">
+          <view class="img" style="width:98%;height:70%">
+          <image mode="aspectFit" style="width:100%;height:100%" src="https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1557941134694&di=3f8957456fde40982e5d0efc3643249a&imgtype=0&src=http%3A%2F%2Fb-ssl.duitang.com%2Fuploads%2Fitem%2F201706%2F06%2F20170606171105_cdj83.png"></image>
+          </view>
+          <view class="act-name">
+          <!-- {{affairs.actitle}} -->
+            活动1
+          </view>
+          <view class="act-time">
+            <!-- {{item.start_time}} 至 {{item.end_time}}
+             -->
+             2018.01.01 至 2019.01.01
+          </view>  
+        </view>
+      </view>
+    </scroll-view>
+    </view>
+    <!-- 显示主体
+    <view class="container" wx:for="{{affairsList}}" wx:key="{{id}}"    
+    wx:for-item="affair">
+      <view data-id="{{affair.id}}" bindtap='showDetail'>
+        <image bindtap="bindViewTap" class="avatar" src="{{affair.picture}}" 
+        background-size="cover"></image>
+          <view bindtouchstart="bindTouchStart" bindtouchend="bindTouchEnd" 
+          bindlongtap="bingLongTap" data-index="{{index}}">
+            <view class="post">
+              <view class="node">
+                {{affair.label}}
+              </view>
+              <view class="username">
+                {{affair.writerName}}
+              </view>
+              <view class="content">
+                <view bindtap="gotoContent" data-content="{{item.content_rendered}}"
+                data-avatar="{{item.member.avatar_mini}}" data-title="{{item.title}}"
+                class="title">
+                  <text space="nbsp">{{affair.abstracts}}</text>
+                </view>
+                <view class="replies">{{item.replies}}</view>
+              </view>
+              <view class="ago">
+                {{affair.accontent}}
+              </view>
+            </view>
+          </view>
+      </view>
+      <view data-id="{{affair.id}}" data-isCollection="{{affair.isCollection}}" 
+      data-index="{{index}}" catchtap="collect" class="iscollect">
+        <image wx:if="{{affair.isCollection=='0'}}" class="iscollectimage" 
+        src='../../resources/incollect.png'></image>
+        <image wx:elif="{{affair.isCollection=='1'}}" class="iscollectimage" 
+        src='../../resources/collected.png'></image>
+      </view>
+    </view> -->
+    <view class="classname" style="text-align: center;font-size: 30rpx;color: #ccc">
+      {{resmsg}}
+    </view>
+  </view>
+</view>

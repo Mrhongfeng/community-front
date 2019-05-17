@@ -1,0 +1,66 @@
+<!--pages/collect/collect.wxml-->
+<view class="div">
+  <view class="container" animation="{{slider}}">
+    <view style="width:100%;height:12%;">
+      <view class="top">角色申请审核</view>
+      <view class="separate"></view>
+    </view>
+    <view class="showPanel">
+      <view class="showContent" wx:for="{{affairsList}}" wx:key="index" bindtap="showDetail" id="{{index}}" animation="{{up}}">
+        <view class="img">
+          <image style="width:100%;height:100%" src="/images/add.png"></image>
+        </view>
+        <view class="info">
+          <view class="act-name">
+            申请{{item.name}}
+          </view>
+          <view class="act-time">
+          </view> 
+        </view>
+      </view>
+    </view>
+  </view>
+</view>
+<view class="notice" id="tap" wx:if="{{isShow}}" bindtap="tap">
+        <view class="box">
+          <view class="box-hd">
+            <text class="box-title">申请成为导师</text>
+            <icon class="box-close" type='cancel' bindtap='hide'></icon>
+          </view>
+          <view class="box-bd">
+            <view class="notice-q">申请理由</view>
+            <view class="notice-a">
+              <text>{{content}}</text>
+            </view>
+            <view class="notice-q">申请凭证</view>
+            <view style="width:200rpx;height:200rpx">
+              <image style="width:100%;height:100%" src="{{img}}"></image>
+            </view>
+          </view>
+          <view class="button">
+            <view bindtap='disagree'>不同意申请</view>
+            <view bindtap='agree'>同意申请</view>
+          </view>
+        </view>
+      </view>
+<!-- <view class="show" id="tap" wx:if="{{isShow}}" bindtap='tap'>
+    <icon class="cancel" type='cancel' bindtap='hide'></icon>
+      <view style="height: 90%">
+        <view style="font-weight: bold;text-align:center">
+          申请成为导师  
+        </view>
+        <view class="separate"></view>
+        <view style="height: 90%;overflow: scroll">
+          <view>申请理由：<view>{{content}}</view></view>
+          <view>申请凭证：
+            <view style="width:200rpx;height:200rpx">
+            <image style="width:100%;height:100%" src="/images/add.png"></image>
+            </view>
+          </view>
+        </view>
+      </view>
+      <view class="button">
+        <view>不同意发布</view>
+        <view>同意发布</view>
+      </view>
+    </view> -->

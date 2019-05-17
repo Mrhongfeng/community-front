@@ -1,0 +1,109 @@
+/* 背景 */
+.bcg {
+  position: relative;
+  width: 100%;
+  height: 450rpx;
+  background-image: radial-gradient(#c7c7ce,#a6a8a8,#727474);
+}
+.bgimg {
+  height:100%;
+  width:100%;
+  position: absolute;
+}
+.actInfo {
+  position: absolute;
+  float: left;
+  width: 70%;
+  height: 160rpx;
+  left: 0;
+  bottom: 0;
+  padding-left: 2%;
+  font-size: 24rpx;
+  color: white;
+  font-weight: lighter;
+}
+.act-name {
+  font-size: 38rpx;
+  font-weight: normal;
+  padding-bottom: 14rpx;
+}
+/* tab栏 */
+.tab-box {
+  width: 100%;
+  height: 75rpx;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+}
+.tab-items {
+  flex: 1;
+  font-size: 32rpx;
+  text-align: center;
+  border-right: 2px solid rgba(0,0,0,0.2); 
+}
+.bottom-border-1 {
+  border: 1rpx solid rgba(0,0,0,0.1);
+  width: 100%;
+  text-align: center;
+}
+.bottom-border-2 {
+  border: 2rpx solid rgba(0,0,0,0.1);
+}
+.select {
+  color: rgb(163, 192, 235);
+}
+.removeSelect {
+  color: #727474;
+}
+/*具体显示栏*/
+.show-box {
+  height: 580rpx;
+  margin: 0 auto;
+  width: 90%;
+  padding: 0rpx 30rpx; 
+  font-size: 30rpx;
+  font-weight: light;
+  display: flex;
+  flex-flow: column wrap; 
+  color:#7c7e7e;
+}
+.show-box view:not(.title) {
+  margin-bottom: 8rpx;
+}
+.title {
+  font-size: 38rpx;
+  font-weight: normal;
+  margin: 15rpx auto; 
+  color: rgb(50, 50, 50);
+}
+.button {
+  position: fixed;
+  bottom: 0;
+  width: 100%;
+  height: 68rpx;
+  background-color: rgba(163, 192, 235, .12);
+  color: rgb(163, 192, 235);
+  font-size: 40rpx;
+  line-height: 68rpx;
+  text-align: center;
+}
+.sign {
+  overflow: scroll;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+}
+.sign-items {
+  width: 100%;
+  height: 120rpx;
+  font-size: 40rpx;
+  line-height: 120rpx;
+  border-bottom: 1rpx solid rgba(0,0,0,0.1);
+}
+.iname {
+  float: left;
+}
+.iflag {
+  float: right;
+}

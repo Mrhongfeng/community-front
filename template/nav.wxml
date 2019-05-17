@@ -1,0 +1,25 @@
+<template name="nav">
+  <view class="flex fix_nav_wp">
+  <view class="nav_licon" bindtap='gotoCompanyIndex'>
+    <button class="defalut_btn on_cor">
+      <image class='homeicon' src="../../images/home_true.png"></image>
+      <text class="txt">首页</text>
+    </button>
+  </view>
+  <view class="nav_link ">
+    <button class="defalut_btn" bindtap='gotopublish'>
+      <view class="plus_wp">
+        <image src='../../images/plus_ico.png' class="plus_ico" />
+      </view>
+      <text class="txt txt_fb">发布</text>
+    </button>
+  </view>
+  
+  <view class="nav_licon">
+    <button class="defalut_btn on_cor">
+      <image class='homeicon' src="../../images/myself_true.png"></image>
+      <text class="txt">我的</text>
+    </button>
+  </view>
+</view>
+</template>

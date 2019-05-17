@@ -1,0 +1,24 @@
+<!--pages/collect/collect.wxml-->
+<view class="div">
+  <view class="container" animation="{{slider}}">
+    <view style="width:100%;height:12%;">
+      <view class="top">{{type}}</view>
+      <view class="separate"></view>
+    </view>
+    <view class="showPanel">
+      <view class="showContent" wx:for="{{affairsList}}" wx:key="index" bindtap="showDetail" bindlongtap="up" id="{{index}}" animation="{{up}}">
+        <view class="img">
+          <image style="width:100%;height:100%" src="/images/add.png"></image>
+        </view>
+        <view class="info">
+          <view class="act-name">
+            {{item.name}}
+          </view>
+          <view class="act-time">
+            2018.01.01 至 2019.01.01
+          </view> 
+        </view>
+      </view>
+    </view>
+  </view>
+</view>

@@ -1,0 +1,28 @@
+<view class="container" style="opacity: 0;margin-left:400px;" animation="{{slide}}">
+  <view class="userinfo">
+    <button wx:if="{{!hasUserInfo && canIUse}}" open-type="getUserInfo" bindgetuserinfo="getUserInfo"> 获取头像昵称 </button>
+    <block wx:else>
+      <image bindtap="bindViewTap" class="userinfo-avatar" src="{{userInfo.avatarUrl}}" mode="cover"></image>
+      <text class="userinfo-nickname">{{userInfo.nickName}}</text>
+    </block>
+  </view>
+  <view class="credit">
+    <image src="../../images/credit.png" style='width:40rpx;height:40rpx;'></image>
+    <text class="credit-text" style="margin-left:10rpx;">积分 100</text>
+  </view> 
+  <view class="separate">
+    <view class="line"></view>
+    <text>功能列表</text>
+  </view>
+  <view class="function-list">
+      <view wx:for="{{func}}" wx:key="index" class="list-item"
+       bindtap="show" id="{{index}}">
+          <image src="{{item.icon}}" style='width:81rpx;height:81rpx'></image>
+          <view>{{item.name}}</view>
+        </view>
+      <!-- <view class="list-item">
+        <image class="item-image" src="../../images/my.png"></image>
+        <text class="item-text">我的收藏</text>
+      </view> -->
+  </view>
+</view>

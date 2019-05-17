@@ -1,0 +1,61 @@
+<view style="padding: 0;">
+  <!-- 背景图片 -->
+  <view class="bcg">
+    <view class="bgimg" style='background: url(../../images/add.png);background-size: cover;background-position: center;opacity:0.5'>
+    </view>
+    <view class="actInfo">
+      <view class="act-name">{{name}}</view>
+      <!-- <view class="tch" style="padding-bottom: 8rpx">已报名导师数：{{tchCount}}/{{tchAllCount}}</view> -->
+      <view class="stu">已报名学员：{{stuCount}}/{{stuAllCount}}</view>
+    </view>
+  </view>
+  <!-- tab选择 -->
+  <view class="tab-box"> 
+    <view wx:for="{{tab}}" wx:key="index" style="width:100%">
+      <view class="tab-items {{current==index?'select':'removeSelect'}}" 
+          bindtap="show" bindlongtap="longtap" data-index="{{index}}">
+            {{item}}
+      </view>
+    </view>
+  </view>
+  <view class="bottom-border-2"></view>
+  <!-- 被选中 -->
+  <view class="show-box">
+    <view wx:if="{{current==0}}">
+      <view class="title">活动组织形式</view>
+      <view>本活动举办单位 {{orgType}}</view>
+      <view class="bottom-border-1"></view>
+      <view class="title">活动简介</view>
+      <view>一二三四五六七八九十一二三四五六七八九十一二三四五六七八九十一二三四五六七八九十一二三四五六七八九十一二三四五六七八九十一二三四五六七八九十一二三四五六七八九十一二三四五六七八九十一二三四五六七八九十一二三四五六七八九十一二三四五六七八九十一二三四五六七八九十一二三四五六七八九十一二三四五六七八九十一二三四五六七八九十一二三四五六七八九十一二三四五六七八九十一二三四五六七八九十一二三四五六七八九十</view>
+    </view>
+    <view wx:if="{{current==1}}">
+      <view class="title">活动时间范围</view>
+      <view>活动时间 {{startPartTime}} - {{endPartTime}}</view>
+      <view class="bottom-border-1"></view>
+      <view class="title">活动地点</view>
+      <view>本次活动地点安排在{{location}}</view>
+    </view>
+    <view wx:if="{{current==2}}">
+      <view class="title">积分限制</view>
+      <view>本活动所有参与人员的积分门槛 {{limit}}</view>
+      <view class="bottom-border-1"></view>
+      <view class="title">积分奖励</view>
+      <view>本活动参与成功者将奖励积分 {{reward}}</view>
+      <view class="bottom-border-1"></view>
+      <view class="title">注意事项</view>
+      <view>名额有限的活动先到先得。</view>
+      <view>有意参加本活动的导师请注意抢单时间节点。</view>
+    </view>
+    <view class="sign" wx:if="{{current==3}}">
+      <view style="border-bottom:1rpx solid rgba(0,0,0,.1);text-align:center">*导师可以点击未签到的学员为其补签</view>
+      <view wx:for="{{sign}}" wx:key="index" class="sign-items">
+      <view class="iname">{{item.name}}</view>
+      <view class="iflag">
+        <view data-index="{{index}}" bindtap="compensate" wx:if="{{!item.flag}}" style="color:rgb(243, 128, 75)">未签到</view>
+        <view data-index="{{index}}" wx:if="{{item.flag}}" style="color:rgb(104, 224, 144)">已签到</view>
+      </view>
+      </view>
+    </view>
+  </view>
+  <view class="button">我要报名</view>
+</view>

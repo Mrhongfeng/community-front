@@ -1,0 +1,76 @@
+.div {
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+}
+.container {
+  opacity: 0;
+  top: 95%;
+  width: 100%;
+  height: 100%;
+  border-top-left-radius: 70rpx;
+  border-top-right-radius: 70rpx;
+  box-shadow: 5px -5px 5px rgba(0,0,0,.05);
+  background-image: linear-gradient(to right bottom,#e6f8d8,#e9fcf1,#fff);
+}
+.top {
+  opacity: 0.8;
+  color: cadetblue;
+  font-size: 50rpx;
+  padding-top: 30rpx;
+  margin-left: 10%;
+}
+.separate {
+  width: 80%;
+  border: 1px solid #cfcdcd;
+  margin: 0 auto;
+}
+.showPanel{
+  height: 80%;
+  overflow-y: scroll;
+  overflow-x: hidden;
+  width: 80%;
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+}
+.showPanel .showContent {
+  opacity: 0;
+  width: 95%;
+  height: 25%;
+  border: 1px solid rgb(219, 248, 219);
+  border-right: 0;
+  border-top-left-radius: 40rpx;
+  border-bottom-left-radius: 40rpx;
+  margin-bottom: 40rpx;
+  box-shadow: 15rpx 15rpx 15rpx rgba(0,0,0,.05);
+}
+.img {
+  float: left;
+  width: 40%;
+  height: 100%;
+}
+.info {
+  float: left;
+  width: 60%;
+  height: 100%;
+}
+/*最多两行*/
+.act-name {
+  width: 90%;
+  font-size: 44rpx;
+  padding-top: 40rpx;
+  padding-left: 15rpx;
+  color: rgb(109, 199, 154);
+  overflow: hidden;
+  text-overflow: ellipsis;
+  display: -webkit-box;
+  word-break: break-all;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+}
+.act-time {
+  font-size: 24rpx;
+  padding-left: 15rpx;
+  color: grey;
+}

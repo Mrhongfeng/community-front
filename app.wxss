@@ -1,0 +1,212 @@
+/* 小图标 */
+/* @font-face {
+  font-family: "iconfont";
+  src: url('iconfont.eot?t=1516850672061'); 
+  src: url('iconfont.eot?t=1516850672061#iefix') format('embedded-opentype'), 
+}  */
+page {
+  height: 100%;
+}
+.iconfont {
+  font-family:"iconfont" !important;
+  font-size:16px;
+  font-style:normal;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+.icon-iconfont707:before { content: "\e610"; }
+
+.icon-taotai:before { content: "\e626"; }
+
+.icon-shanchu:before { content: "\e69b"; }
+
+.icon-kaiguanguan:before { content: "\e62c"; }
+
+.icon-yikeappshouyetubiao35:before { content: "\e606"; }
+
+.icon-a585:before { content: "\e66b"; }
+
+.icon-tupian1:before { content: "\e6eb"; }
+
+.icon-dui:before { content: "\e713"; }
+
+.icon-xiazai5:before { content: "\e605"; }
+
+.icon-fenxiang3:before { content: "\e6be"; }
+
+.icon-shouji:before { content: "\e645"; }
+
+.icon-biaoqing:before { content: "\e644"; }
+
+.icon-shaixuan:before { content: "\e635"; }
+
+.icon-fabuqiugou:before { content: "\e655"; }
+
+.icon-xiangji:before { content: "\e61b"; }
+
+.icon-shangxia:before { content: "\e667"; }
+
+.icon-wait:before { content: "\e68f"; }
+
+.icon-exe:before { content: "\e8a7"; }
+
+.icon-dui1:before { content: "\e614"; }
+
+.icon-pdf:before { content: "\e611"; }
+
+.icon-word:before { content: "\e613"; }
+
+.icon-kefu:before { content: "\e60a"; }
+
+.icon-xin:before { content: "\e607"; }
+
+.icon-edit:before { content: "\e67f"; }
+
+.icon-baojiadan:before { content: "\e60f"; }
+
+.icon-aixin:before { content: "\e60c"; }
+
+.icon-shangjiaruzhu:before { content: "\e60b"; }
+
+.icon-shangjia:before { content: "\e61a"; }
+
+.icon-xiayiye:before { content: "\e6a6"; }
+
+.icon-zanting1:before { content: "\e60e"; }
+
+.icon-kefu1:before { content: "\e650"; }
+
+.icon-tupian:before { content: "\e612"; }
+
+.icon-dizhi1:before { content: "\e602"; }
+
+.icon-praise_fill:before { content: "\e71a"; }
+
+.icon-praise:before { content: "\e71b"; }
+
+.icon-fabu:before { content: "\e604"; }
+
+.icon-weixin:before { content: "\e639"; }
+
+.icon-chakan:before { content: "\e65a"; }
+
+.icon-shezhi:before { content: "\e60d"; }
+
+.icon-baojiadancc:before { content: "\e601"; }
+
+.icon-wode:before { content: "\e600"; }
+
+.icon-guanbi:before { content: "\e64c"; }
+
+.icon-tu:before { content: "\e64b"; }
+
+.icon-arrUp-fill:before { content: "\e779"; }
+
+.icon-kaiguanguan-copy:before { content: "\e62f"; }
+
+.icon-fenxiang:before { content: "\e62a"; }
+
+.icon-mingpianjia:before { content: "\e681"; }
+
+.icon-duigou:before { content: "\e66c"; }
+
+.icon-huahanAPP-icon--:before { content: "\e691"; }
+
+.icon-xiayiye-copy:before { content: "\e6a7"; }
+
+.icon-qiugouguanli:before { content: "\e66d"; }
+
+.icon-praise-copy:before { content: "\e77a"; }
+
+page{font-size:26rpx;color:#666;}
+.flex{display:-webkit-flex;display: flex;width:100%;}
+
+/*  底部悬浮导航  */
+.fix_nav_wp{height:110rpx;position: fixed;left:0;bottom:0;background:#fff;border-top:1rpx solid #e5e5e5;z-index: 10}
+.fix_nav_wp .nav_link{flex:1;}
+.fix_nav_wp .nav_licon{flex:1;}
+.fix_nav_wp button{height:110rpx;display: flex;justify-content:space-between;align-items: center;padding:0;font-size:22rpx;
+flex-direction: column;color:#999;position: relative;}
+.fix_nav_wp .tip_tip{position: absolute;right:25rpx;top:5rpx;min-width:28rpx;line-height:32rpx;height: 32rpx;padding:0 8rpx;color:#fff;background:#f00;border-radius:50em;border:1rpx solid #fff;}
+.fix_nav_wp .nav_link .iconfont{height:60rpx;font-size:56rpx;line-height: 80rpx;color: #c4c8cc;}
+.fix_nav_wp .nav_link .plus_wp{width:120rpx;height:120rpx;margin-top: -45rpx;}
+.fix_nav_wp .nav_link  image{width:120rpx;height:120rpx;}
+.fix_nav_wp .nav_licon image{width:70rpx;height:120rpx;}
+.fix_nav_wp .nav_link .txt{height:50rpx;line-height:40rpx;color: #c4c8cc;}
+.fix_nav_wp .nav_link.current .txt{color:#00a2e9;}
+.fix_nav_wp .nav_link .del_ico{display: block;}
+.fix_nav_wp .nav_link .cur_ico{display: none;}
+.fix_nav_wp .nav_link.current .del_ico{display: none;}
+.fix_nav_wp .nav_link.current .cur_ico{display: block;color:#00a2e9;}
+.fix_nav_wp .nav_link .txt_fb{line-height: 18rpx}
+.fix_nav_wp .nav_link .mp_ico{font-size: 50rpx;line-height: 80rpx}
+.fix_nav_wp .nav_link .xiaox_ico{font-size: 64rpx;line-height: 70rpx;}
+.fix_nav_wp .nav_link .my_ico{font-size: 56rpx;}
+.fix_nav_wp .on_cor .del_ico, .fix_nav_wp .on_cor .txt{color: #00a2e9}
+/* 清楚按钮的默认样式  */
+.defalut_btn{background: transparent;border:none;overflow: visible;padding-left:0;padding-right:0;margin-left:0;margin-right:0;
+border-radius:0;}
+.defalut_btn:after{display: none;}
+.text-primary{color:#00a2e9;}
+
+.notice {
+  position: absolute;
+  z-index: 100;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.box {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+  width: 80%;
+  background: #fff;
+  border-radius: 10px;
+  box-shadow: 0 0 50px rgba(22,22,22,.35);
+  transform: translate3d(0,0,0);
+}
+.box-hd {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 100rpx;
+  border-bottom: 1px solid #eee;
+}
+.box-title {
+  font-size: 13pt;
+}
+.box-close {
+  position: absolute;
+  width: 50rpx;
+  height: 50rpx;
+  top: 2%;
+  right: 2%;
+}
+.box-bd {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  padding: 15rpx 40rpx 30rpx;
+}
+.notice-q {
+  color: #999;
+  font-size: 11pt;
+  line-height: 200%;
+  margin-top: 5rpx;
+}
+.notice-a {
+  text-indent: 1em;
+  line-height: 160%;
+  display: flex;
+  flex-direction: column;
+}
+.notice-a text{
+  word-break: break-all;
+}
