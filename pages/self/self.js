@@ -44,19 +44,19 @@ Page({
     //   func: [{ name: '角色申请', icon: '/images/apply.png' },
     //   { name: '参与活动汇总', icon: '/images/part.png' }]
     // })
-    // this.setData({
-    //   func: [{ name: '发布活动', icon: '/images/apply.png' },
-    //   { name: '参与活动汇总', icon: '/images/part.png' },
-    //   { name: '组织活动汇总', icon: '/images/org.png' }]
-    // })
+    this.setData({
+      func: [{ name: '发布活动', icon: '/images/apply.png' },
+      { name: '参与活动汇总', icon: '/images/part.png' },
+      { name: '组织活动汇总', icon: '/images/org.png' }]
+    })
     // this.setData({
     //   func: [{ name: '参与活动汇总', icon: '/images/part.png' },
     //    { name: '指导活动汇总', icon: '/images/org.png' }]
     //  })
-    this.setData({
-      func: [{ name: '资质审核', icon: '/images/apply.png' },
-      { name: '活动审核', icon: '/images/part.png' }]
-    })
+    // this.setData({
+    //   func: [{ name: '资质审核', icon: '/images/apply.png' },
+    //   { name: '活动审核', icon: '/images/part.png' }]
+    // })
   },
 
   /**
@@ -117,7 +117,7 @@ Page({
     var id = e.currentTarget.id
     if (id == 0) {
       wx.navigateTo({
-        url: '../role/role',
+        url: '../publish/publish',
       })
     }
     else if (id == 1) {

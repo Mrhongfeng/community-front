@@ -8,7 +8,7 @@
       <!-- 活动主题 -->
       <view class="mod t-name">
         <text class="key">活动名称</text>
-        <input name="title" class="input" maxlength="12" placeholder="活动名称字数限制：10" value="{{title}}" />
+        <input bindinput='title' name="title" class="input" maxlength="12" placeholder="活动名称字数限制：10" value="{{title}}" />
       </view>
     </view>
 
@@ -16,7 +16,7 @@
       <!-- 活动地点 -->
       <view class="mod t-name">
         <text class="key">活动地点</text>
-        <input name="location" class="input" maxlength="20" placeholder="活动地点字数限制：20" value="{{location}}" />
+        <input bindinput='location' name="location" class="input" maxlength="20" placeholder="活动地点字数限制：20" value="{{location}}" />
       </view>
       <!-- 活动类别 -->
       <view class="mod t-sign-time">
@@ -75,7 +75,7 @@
     <!-- 积分奖励 -->
       <view class="mod t-name">
         <text class="key">积分奖励</text>
-        <input name="creditnum" type="number" class="input" maxlength="3" placeholder='请输入积分奖励' value="{{awardnum}}" />
+        <input bindinput='bonus' name="creditnum" type="number" class="input" maxlength="3" placeholder='请输入积分奖励' value="{{awardnum}}" />
       </view>
     </view>
     <!-- 活动内容 -->
@@ -109,7 +109,7 @@
      </view>
       <view class="submit-btn">
         <button class='button' loading="{{isLoading}}" hover-start-time="200" 
-        disabled="{{isdisabled}}" formType="submit">发起申请</button>
+        disabled="{{isdisabled}}" formType="submit">发布活动</button>
       </view>
     </view>
   </form>

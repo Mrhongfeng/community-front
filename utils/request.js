@@ -39,7 +39,8 @@ module.exports = {
   error: error,
   requestFormat: requestFormat,
   requestBase: requestBase,
-  requestDelete: requestDelete
+  requestDelete: requestDelete,
+  requestPost: requestPost
 }
 
 //request 数据格式化
@@ -65,6 +66,27 @@ function requestBase(url, formatData, func) {
     header: {
       'Authorization': "Bearer " + wx.getStorageSync('token'),
       'content-type': 'application/json'
+    },
+    method: 'POST',
+
+    success: function (res) {
+      func(res)
+      // console.log('success')
+    },
+    fail: function (res) {
+      console.log('submit fail');
+    }
+  })
+}
+
+//post
+function requestPost(url, formatData, func) {
+  var that = this
+  wx.request({
+    url: url,
+    data: formatData,
+    header: {
+      'content-type': 'application/x-www-form-urlencoded'
     },
     method: 'POST',
 

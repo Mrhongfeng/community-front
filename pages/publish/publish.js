@@ -1,4 +1,5 @@
 const rq = require('../../utils/request.js');
+
 var app = getApp()
 var that;
 var myDate = new Date();
@@ -15,6 +16,20 @@ Page({
    * 页面的初始数据
    */
   data: {
+
+    formData:{
+      acOrg:"",
+      acTitle:"",
+      acContent:"",
+      acLocation:"",
+      acstartTime:"",
+      acendTime:"",
+      acThreshold:"",
+      acBonus:"",
+      acState:"0",
+      // aclimitBonus:""
+    },
+
     notice_status: false,
     accounts: ["微信号", "QQ号", "手机号"],
     accountIndex: 0,
@@ -54,7 +69,6 @@ Page({
     });
   },
 
-
   //字数改变触发事件
   bindTextAreaChange: function (e) {
     var that = this
@@ -71,6 +85,7 @@ Page({
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
+    console.log(this.data)
     that = this;
     that.setData({//初始化数据
       src: "",
@@ -191,12 +206,6 @@ Page({
     }
   },
 
-  //改变时间
-  bindDateChange1: function (e) {
-    this.setData({
-      sdate: e.detail.value
-    })
-  },
   bindDateChange2: function (e) {
     this.setData({
       edate: e.detail.value
@@ -211,12 +220,6 @@ Page({
   bindTimeChange2: function (e) {
     this.setData({
       etime: e.detail.value
-    })
-  },
-  //改变活动类别
-  bindTypeChange: function (e) {
-    this.setData({
-      typeIndex: e.detail.value
     })
   },
   //选择地点
@@ -272,6 +275,7 @@ Page({
   },
   //提交表单
   submitForm: function (e) {
+    console.log(e)
     var that = this;
 
     if (that.data.showInput == false) {
@@ -281,22 +285,29 @@ Page({
       })
       return;
     }
-    var title = e.detail.value.title;
-    var location = e.detail.value.location;
-    var stime = this.data.sdate+"/"+this.data.stime;
-    var etime = this.data.edate + "/" + this.data.etime;
+    
     var typeIndex = this.data.typeIndex;
     var acttype = 1 + parseInt(typeIndex);
     var acttypename = getTypeName(acttype); //获得类型名称
-    var longitude = this.data.longitude; //经度
-    var latitude = this.data.latitude;//纬度
+
     var switchHide = e.detail.value.switchHide;
     var peoplenum = e.detail.value.peoplenum;
-    console.log(peoplenum);
-    var content = e.detail.value.content;
+
     //------发布者真实信息------
     var realname = e.detail.value.realname;
     var contactindex = this.data.accountIndex;
+    this.setData({
+      'formData.acTitle' : e.detail.value.title,
+      'formData.acLocation': e.detail.value.location,
+      'formData.acOrg': acttypename,
+      'formData.acstartTime': that.data.sdate + "/" + that.data.stime,
+      'formData.acendTime': that.data.edate + "/" + that.data.etime,
+      'formData.acThreshold': e.detail.value.peoplenum,
+      // 'formData.aclimitBonus' :
+      // 'formData.acBonus':
+      'formData.acContent': e.detail.value.content
+    })
+    console.log(this.data.formData)
     if (contactindex == 0) {
       var contactWay = "微信号";
     } else if (contactindex == 1) {
@@ -310,7 +321,7 @@ Page({
     var phReg = /^1[34578]\d{9}$/;
     var nameReg = new RegExp("^[\u4e00-\u9fa5]{2,4}$");
     //先进行表单非空验证
-    if (title == "") {
+    if (this.data.formData.acTitle == ""){
       this.setData({
         showTopTips: true,
         TopTips: '请输入活动名称'
@@ -319,7 +330,7 @@ Page({
       setTimeout(function () {
         app.fade(that, 'fade', 0);
       }, 1500);
-    } else if (location == "") {
+    } else if (this.data.formData.acLocation == "") {
       this.setData({
         showTopTips: true,
         TopTips: '请输入活动地点'
@@ -333,42 +344,12 @@ Page({
         showTopTips: true,
         TopTips: '请输入人数'
       });
-    } else if (content == "") {
+    } else if (this.data.formData.acContent == "") {
       this.setData({
         showTopTips: true,
         TopTips: '请输入活动内容'
       });
-    } else if (realname == "") {
-      this.setData({
-        showTopTips: true,
-        TopTips: '请输入真实姓名'
-      });
-    } else if (realname != "" && !nameReg.test(realname)) {
-      this.setData({
-        showTopTips: true,
-        TopTips: '真实姓名一般为2-4位汉字'
-      });
-    } else if (contactValue == "") {
-      this.setData({
-        showTopTips: true,
-        TopTips: '请输入联系方式'
-      });
-    } else if (contactWay == "微信号" && !wxReg.test(contactValue)) {
-      this.setData({
-        showTopTips: true,
-        TopTips: '微信号格式不正确'
-      });
-    } else if (contactWay == "手机号" && !phReg.test(contactValue)) {
-      this.setData({
-        showTopTips: true,
-        TopTips: '手机号格式不正确'
-      });
-    } else if (contactWay == "QQ号" && !qqReg.test(contactValue)) {
-      this.setData({
-        showTopTips: true,
-        TopTips: 'QQ号格式不正确'
-      });
-    } else {
+    }else {
       console.log('校验完毕');
       that.setData({
         isLoading: true,
@@ -496,11 +477,20 @@ Page({
         },
       })
     }
-    setTimeout(function () {
-      that.setData({
-        showTopTips: false
-      });
-    }, 1000);
+
+    var url = app.globalData.domain + '/community/add'
+    rq.requestPost(url, this.data.formData, this.successFunc)
+  },
+
+  successFunc:function(res){
+    console.log(res)
+
+    if(res.data.code===200){
+      wx.showModal({
+        title: '',
+        content: '',
+      })
+    }
   },
 
   
@@ -531,7 +521,42 @@ Page({
    */
   onShareAppMessage: function () {
 
-  }
+  },
+
+  // title:function(e){
+  //   this.setData({
+  //     'formData.acTitle': e.detail.value,
+  //   })
+  //   //console.log(this.data.formData.acTitle)
+  // },
+
+  // location:function(e){
+  //   this.setData({
+  //     'formData.acLocation': e.detail.value,
+  //   })
+  // },
+
+  //改变活动类别
+  // bindTypeChange: function (e) {
+  //   this.setData({
+  //     'formData.acOrg': e.detail.value
+  //   })
+  // },
+
+  //改变时间
+  // bindDateChange1: function (e) {
+  //   this.setData({
+  //     'formData.acStartTime': e.detail.value
+  //   })
+  // },
+
+  bonus:function(e){
+    this.setData({
+      'formData.acBonus': e.detail.value
+    })
+  },
+
+
 })
 
 //根据活动类型获取活动类型名称
