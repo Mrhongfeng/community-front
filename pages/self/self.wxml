@@ -16,7 +16,7 @@
   </view>
   <view class="function-list">
       <view wx:for="{{func}}" wx:key="index" class="list-item"
-       bindtap="show" id="{{index}}">
+       bindtap="show" id="{{item.id}}">
           <image src="{{item.icon}}" style='width:81rpx;height:81rpx'></image>
           <view>{{item.name}}</view>
         </view>

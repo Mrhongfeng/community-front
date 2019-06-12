@@ -9,28 +9,20 @@ Page({
    * 页面的初始数据
    */
   data: {
-    accontent:"",
     valiid:"",
-    navicateData:{
-    name: null,//活动名
-    tchCount: null,//报名教师数
-    stuCount: null,//报名学员数
-    stuAllCount: null,//学员上限
-    tchAllCount: null,//导师上限（看着办，你的组员们觉得就一个好了
-    orgType: null,//活动类别
-    limit: null,//积分门槛
-    reward: null,//积分奖励
-    resume: null,//活动简介
-    location: null,//活动地点
-    stuStartSignTime: null,//报名开始
-    stuEndSignTime: null,//报名结束
-    startPartTime: null,//活动开始
-    endPartTime: null,//活动结束
-    /** 以下看着办，你的组员们不想做这么复杂 */
-    tchStartSignTime: null,//抢单开始
-    tchEndSignTime: null,//抢单结束
-    },
+      name: null,//活动名
+      tchCount: null,//报名教师数
+      stuCount: null,//报名学员数
+      stuAllCount: null,//学员上限
+      orgType: null,//活动类别
+      limit: null,//积分门槛
+      reward: null,//积分奖励
+      resume: null,//活动简介
+      location: null,//活动地点
+      start: null,//活动开始
+      end: null,//活动结束
     current: 0,
+    buttonType: "",
     tab: [],
     sign: [
       { name: 1, flag: 0 },
@@ -81,26 +73,71 @@ Page({
   onLoad: function (options) {
     var that = this;
     console.log(options);
-    this.setData({
-      tab: [
-        '活动详情',
-        '具体安排',
-        '参与须知',
-        '签到情况'
-      ],
-    })
+    //活动参与按钮
+    if(options.current!=0) {
+      this.setData({
+        buttonType: '活动已截止'
+      })
+    }
+    else {
+      if(options.user==0)
+        this.setData({
+          buttonType: '我要报名'
+        })
+      else if(options.user==1)
+        this.setData({
+          buttonType: '我要抢单'
+        })
+    }
+    //活动显示tab栏
+    if(options.user!=1){
+      this.setData({
+        tab: [
+          '活动详情',
+          '具体安排',
+          '参与须知',
+        ],
+      })
+    }
+    else {
+      this.setData({
+        tab: [
+          '活动详情',
+          '具体安排',
+          '参与须知',
+          '签到情况'
+        ],
+      })
+    } 
     var url = app.globalData.domain + '/community/detail/' + options.id;
-    //console.log(url)
     wx.request({
       url: url,
       method: 'GET',
       success:function(res){
         console.log(res);
         that.setData({
-          accontent : res.data.accontent
+          name : res.data.acTitle,
+          resume : res.data.acContent,
+          location : res.data.acLocation,
+          orgType : res.data.acOrg,
+          start : res.data.acstartTime,
+          end : res.data.acendTime,
+          reward : res.data.acBonus,
+          stuAllCount: res.data.acThreshold,
+          limit: res.data.accredit
         })
       }
-
+    })
+    var url = app.globalData.domain + '/community/wxuseractivity/usercount/' + options.id;
+    wx.request({
+      url: url,
+      method: 'GET',
+      success: function (res) {
+        console.log(res);
+        that.setData({
+          stuCount: res.data
+        })
+      }
     })
   },
 

@@ -7,21 +7,18 @@ Page({
    * 页面的初始数据
    */
   data: {
-    affairsList:[
-      { name: '活动1', id: 0 },
-      { name: '活动2', id: 1 },
-      { name: '活动3', id: 2 },
-      { name: '活动4', id: 3 },
-      { name: '活动5', id: 4 },
-      { name: '活动6', id: 5 },
-      { name: '活动7', id: 6 },
-      { name: '活动8', id: 7 }
-    ]
-  },
-  //自定义
-  up: function(){
-    console.log("up");
-    
+    cout: 0,
+    isShow: false,
+    affairsList: [],
+    acTitle: '',
+    acstartTime: '',
+    acendTime: '',
+    acLocation: '',
+    acOrg: '',
+    acThreshold: '',
+    acBonus: '',
+    acContent: '',
+    id: 0
   },
   /**
    * 生命周期函数--监听页面加载
@@ -35,6 +32,11 @@ Page({
     else if (options.type == 'org'){
       this.setData({
         type: '我组织的活动'
+      })
+    }
+    else {
+      this.setData({
+        type: '我指导的活动'
       })
     }
   },
@@ -54,7 +56,9 @@ Page({
    * 生命周期函数--监听页面显示
    */
   onShow: function () {
-    
+    if (this.data.cout == 0) {
+      this.loadaffairs();
+    }
   },
 
   /**
@@ -90,5 +94,74 @@ Page({
    */
   onShareAppMessage: function () {
 
-  }
+  },
+  //自定义
+  hide: function () {
+    this.setData({
+      isShow: false
+    })
+  },
+  tap: function (e) {
+    if (e.target.id == 'tap') {
+      this.hide();
+    }
+  },
+  /* 加载活动 */
+  loadaffairs: function (e) {
+    wx.showToast({
+      title: '加载中',
+      icon: 'loading',
+      duration: 1000
+    })
+    this.setData({
+      affairsList: [],
+    });
+    var that = this;
+    var formatDa = rq.requestFormat(JSON.stringify(this.data.id))//传送当前用户的openid
+    var url = app.globalData.domain + '/community/list'
+    rq.requestBase(url, formatDa, this.successFunc)
+  },
+  //详情浏览
+  showDetail: function (e) {
+    var that=this
+    console.log(e)
+    var url = app.globalData.domain + '/community/detail/' + e.currentTarget.id;
+    this.setData({
+      isShow: true,
+    })
+    wx.request({
+      url: url,
+      method: 'GET',
+      success: function (res) {
+        console.log(res);
+        that.setData({
+          acTitle: res.data.acTitle,
+          acContent: res.data.acContent,
+          acLocation: res.data.acLocation,
+          acOrg: res.data.acOrg,
+          acstartTime: res.data.acstartTime,
+          acendTime: res.data.acendTime,
+          acBonus: res.data.acBonus,
+          accredit: res.data.accredit
+        })
+      }
+    })
+  },
+  successFunc: function (e) {
+    var old = this.data.affairsList;
+    var that = this
+    wx.hideToast();
+    this.setData({
+      'affairsList': old.concat(e.data)
+    })
+    that.setData({
+      cout: e.data.length,
+    })
+    wx.setStorageSync('questionCout', e.data.length)
+    //console.log(that.data.cout);
+    let _resmsg = '-- 没有数据啦 (*・ω・) --';
+    that.setData({
+      resmsg: _resmsg
+    })
+  },
 })

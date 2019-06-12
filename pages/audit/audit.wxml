@@ -6,37 +6,20 @@
       <view class="separate"></view>
     </view>
     <view class="showPanel">
-      <view class="showContent" wx:for="{{affairsList}}" wx:key="index" bindtap="showDetail" id="{{index}}" animation="{{up}}">
+      <view class="showContent" wx:for="{{affairsList}}" wx:key="index" bindtap="showDetail" id="{{item.id}}" animation="{{up}}">
         <view class="img">
           <image style="width:100%;height:100%" src="/images/add.png"></image>
         </view>
         <view class="info">
           <view class="act-name">
-            {{item.name}}
+            {{item.acTitle}}
           </view>
           <view class="act-time">
-            2018.01.01 至 2019.01.01
+            {{item.acstartTime}} 至 {{item.acendTime}}
           </view> 
         </view>
       </view>
     </view>
-
-    <!-- <view class="show" wx:if="{{isShow}}">
-      <view style="height: 90%;overflow: scroll">
-        <view style="font-weight: bold;width: 80%;margin:0 auto;">{{acTitle}}</view>
-        <view class="separate"></view>
-        <view>时间：{{acStart_time}}-{{acEnd_time}}</view>
-        <view>地点：{{acLocation}}</view>
-        <view>组织形式：{{acOrg}}</view>
-        <view>积分门槛：{{acThreshold}}</view>
-        <view>积分奖励：{{acBonus}}</view>
-        <view>活动内容：{{acContent}}</view>
-      </view>
-      <view class="button">
-        <view>不同意发布</view>
-        <view>同意发布</view>
-      </view>
-    </view>-->
   </view>
 </view>
 <view class="notice" id="tap" wx:if="{{isShow}}" bindtap="tap">
@@ -48,7 +31,7 @@
           <view class="box-bd" style="max-height:800rpx;overflow:scroll">
             <view class="notice-q">时间</view>
             <view class="notice-a">
-              <text>{{acStart_time}}-{{acEnd_time}}</text>
+              <text>{{acStart_time}} 至 {{acEnd_time}}</text>
             </view>
             <view class="notice-q">地点</view>
             <view class="notice-a">
@@ -58,9 +41,13 @@
             <view class="notice-a">
               <text>{{acOrg}}</text>
             </view>
-            <view class="notice-q">积分门槛</view>
+            <view class="notice-q">人数上限</view>
             <view class="notice-a">
               <text>{{acThreshold}}</text>
+            </view>
+            <view class="notice-q">积分门槛</view>
+            <view class="notice-a">
+              <text>{{acCredit}}</text>
             </view>
             <view class="notice-q">积分奖励</view>
             <view class="notice-a">

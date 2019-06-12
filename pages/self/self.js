@@ -7,6 +7,16 @@ Page({
    */
   data: {
     func: [],
+    allFunc:
+      [ 
+        { name: '参与活动汇总', icon: '/images/part.png', id: 0 },
+        { name: '组织活动汇总', icon: '/images/org.png', id: 1 },
+        { name: '指导活动汇总', icon: '/images/org.png', id: 2 },
+        { name: '角色申请', icon: '/images/apply.png', id: 3 },
+        { name: '发布活动', icon: '/images/apply.png', id: 4 },
+        { name: '资质审核', icon: '/images/apply.png', id: 5 },
+        { name: '活动审核', icon: '/images/part.png', id: 6 }
+      ]
   },
 
   /**
@@ -39,24 +49,30 @@ Page({
         }
       })
     }
-
-    // this.setData({
-    //   func: [{ name: '角色申请', icon: '/images/apply.png' },
-    //   { name: '参与活动汇总', icon: '/images/part.png' }]
-    // })
+    var temp=[]
+    var id = wx.getStorageSync("id")
+    //普通用户
+    if (id == 0) {
+      temp.push(this.data.allFunc[3])
+      temp.push(this.data.allFunc[0])
+    }
+    else if (id == 1) {
+      temp.push(this.data.allFunc[3])
+      temp.push(this.data.allFunc[1])
+      temp.push(this.data.allFunc[2])
+    }
+    else if (id == 2) {
+      temp.push(this.data.allFunc[4])
+      temp.push(this.data.allFunc[0])
+      temp.push(this.data.allFunc[1])
+    }
+    else if(id==3){
+      temp.push(this.data.allFunc[5])
+      temp.push(this.data.allFunc[6])
+    }
     this.setData({
-      func: [{ name: '发布活动', icon: '/images/apply.png' },
-      { name: '参与活动汇总', icon: '/images/part.png' },
-      { name: '组织活动汇总', icon: '/images/org.png' }]
+      func:temp
     })
-    // this.setData({
-    //   func: [{ name: '参与活动汇总', icon: '/images/part.png' },
-    //    { name: '指导活动汇总', icon: '/images/org.png' }]
-    //  })
-    // this.setData({
-    //   func: [{ name: '资质审核', icon: '/images/apply.png' },
-    //   { name: '活动审核', icon: '/images/part.png' }]
-    // })
   },
 
   /**
@@ -71,11 +87,6 @@ Page({
    */
   onShow: function () {
     app.slideright(this, 'slide', -400, 1);
-    if (typeof this.getTabBar == 'function' && this.getTabBar()) {
-      this.getTabBar().setData({
-        selected: 1
-      })
-    }
   },
 
   /**
@@ -114,21 +125,34 @@ Page({
   },
 
   show: function (e) {
-    var id = e.currentTarget.id
-    if (id == 0) {
-      wx.navigateTo({
-        url: '../publish/publish',
-      })
-    }
-    else if (id == 1) {
-      wx.navigateTo({
-        url: '../collect/collect?type=part',
-      })
-    }
-    else if (id == 2) {
-      wx.navigateTo({
-        url: '../collect/collect?type=org',
-      })
+    var to = e.currentTarget.id
+    console.log(to)
+    switch(to){
+      case '0':
+        wx.navigateTo({
+         url: '../collect/collect?type=part'
+        }); break;
+      case '1':
+        wx.navigateTo({
+          url: '../collect/collect?type=org'
+        }); break;
+      case '2':
+        wx.navigateTo({
+          url: '../collect/collect?type=dir'
+        }); break;
+      case '3':
+        wx.navigateTo({
+          url: '../publish/publish'
+        }); break;
+      case '4':
+        wx.navigateTo({
+          // url: '../review/review'
+          url: '../publish/publish'
+        }); break;
+      case '5':
+        wx.navigateTo({
+          url: '../audit/audit'
+        }); break;
     }
 
   }

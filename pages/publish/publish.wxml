@@ -8,7 +8,7 @@
       <!-- 活动主题 -->
       <view class="mod t-name">
         <text class="key">活动名称</text>
-        <input bindinput='title' name="title" class="input" maxlength="12" placeholder="活动名称字数限制：10" value="{{title}}" />
+        <input name="title" class="input" maxlength="12" placeholder="活动名称字数限制：10" value="{{title}}" />
       </view>
     </view>
 
@@ -16,7 +16,7 @@
       <!-- 活动地点 -->
       <view class="mod t-name">
         <text class="key">活动地点</text>
-        <input bindinput='location' name="location" class="input" maxlength="20" placeholder="活动地点字数限制：20" value="{{location}}" />
+        <input name="location" class="input" maxlength="20" placeholder="活动地点字数限制：20" value="{{location}}" />
       </view>
       <!-- 活动类别 -->
       <view class="mod t-sign-time">
@@ -42,7 +42,7 @@
         <text class="key">活动结束时间</text>
         <picker mode="date" value="{{edate}}" start="{{date}}" end="2020-09-01" bindchange="bindDateChange2">
           <view class="value" name="endtime2">{{edate}}</view>
-        </picker>/
+        </picker>
         <picker mode="time" value="{{etime}}" start="08:00" end="07:59" bindchange="bindTimeChange2">
           <view class="value" name="endhour2">{{etime}}</view>
         </picker>
@@ -75,7 +75,7 @@
     <!-- 积分奖励 -->
       <view class="mod t-name">
         <text class="key">积分奖励</text>
-        <input bindinput='bonus' name="creditnum" type="number" class="input" maxlength="3" placeholder='请输入积分奖励' value="{{awardnum}}" />
+        <input name="awardnum" type="number" class="input" maxlength="3" placeholder='请输入积分奖励' value="{{awardnum}}" />
       </view>
     </view>
     <!-- 活动内容 -->
@@ -85,15 +85,14 @@
         <view class="chnumber">{{noteNowLen}}/{{noteMaxLen}}</view>
       </view>
     </view>
-    <!-- <view class="add_pic" bindtap="uploadPic" wx-if="{{!isSrc}}">
-      <view>添加图片（选填）</view>
+    <view class="add_pic" bindtap="uploadPic" wx-if="{{!isSrc}}">
+      <view>添加活动图片</view>
     </view>
     <view wx:if="{{isSrc}}" class="image_box">
-      <view class="picPre">
+      <view class="picPre" bindtap="clearPic">
         <image src="{{src}}" mode="aspectFit"></image>
-        <view bindtap="clearPic"></view>
       </view>
-    </view> -->
+    </view>
     <view class="mod-a mt20"></view>
     <view class="mt20 read">
      <view class="agree" style="padding-left:10rpx;">

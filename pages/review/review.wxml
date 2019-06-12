@@ -6,16 +6,17 @@
       <view class="separate"></view>
     </view>
     <view class="showPanel">
-      <view class="showContent" wx:for="{{affairsList}}" wx:key="index" bindtap="showDetail" id="{{index}}" animation="{{up}}">
+      <view class="showContent" wx:for="{{affairsList}}" wx:key="index" bindtap="showDetail" id="{{item.id}}" animation="{{up}}">
         <view class="img">
           <image style="width:100%;height:100%" src="/images/add.png"></image>
         </view>
         <view class="info">
-          <view class="act-name">
-            申请{{item.name}}
+          <view wx:if="{{item.targetAuth==1}}" class="act-name">
+            成为导师
           </view>
-          <view class="act-time">
-          </view> 
+          <view wx:elif="{{item.targetAuth==2}}" class="act-name">
+            成为组织者
+          </view>
         </view>
       </view>
     </view>
@@ -24,7 +25,8 @@
 <view class="notice" id="tap" wx:if="{{isShow}}" bindtap="tap">
         <view class="box">
           <view class="box-hd">
-            <text class="box-title">申请成为导师</text>
+            <text wx:if="{{target_auth==1}}" class="box-title">申请成为导师</text>
+            <text wx:elif="{{target_auth==2}}" class="box-title">申请成为组织者</text>
             <icon class="box-close" type='cancel' bindtap='hide'></icon>
           </view>
           <view class="box-bd">
@@ -34,7 +36,7 @@
             </view>
             <view class="notice-q">申请凭证</view>
             <view style="width:200rpx;height:200rpx">
-              <image style="width:100%;height:100%" src="{{img}}"></image>
+              <image style="width:100%;height:100%" src="{{path}}"></image>
             </view>
           </view>
           <view class="button">

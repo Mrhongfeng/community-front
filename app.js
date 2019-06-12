@@ -3,10 +3,54 @@ import Key from './utils/key.js';
 
 App({
   onLaunch: function () {
+    wx.request({
+      url: 'http://localhost:8080/auth',
+      data: {
+        userName: 'admin',
+        password: 'admin',
+        system: 'affair'
+      },
+      header: {
+        'content-type': 'application/json'
+      },
+      success: function (res) {
+        if (res.data.randomKey != '' && res.data.randomKey != null && res.data.randomKey.length == 6) {
+          wx.setStorage({
+            key: 'randomKey',
+            data: res.data.randomKey,
+          })
+          wx.setStorage({
+            key: 'token',
+            data: res.data.token,
+          })
+          wx.setStorage({
+            key: 'userName',
+            data: '123',
+          })
+
+          wx.showToast({
+            title: '加载成功',
+            icon: 'success',
+            duration: 2000,
+          })
+        } else {
+
+          wx.showToast({
+            title: '加载失败',
+            icon: 'none',
+            duration: 2000
+          })
+
+        }
+      }
+    })
+
     // 展示本地存储能力
     var logs = wx.getStorageSync('logs') || []
     logs.unshift(Date.now())
     wx.setStorageSync('logs', logs)
+
+    wx.setStorageSync("id",2)
 
     // 登录
     wx.login({
@@ -40,7 +84,8 @@ App({
     appid: null,
     openid: null,
     cout: '',
-    domain: 'http://www.hhongfeng.cn:8080',
+    // domain: 'http://10.40.94.138:8080',
+    domain: 'http://localhost:8080',
     localStorage: {
       style: {},
       usage: {

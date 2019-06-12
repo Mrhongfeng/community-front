@@ -8,76 +8,24 @@ Page({
    */
   data: {
     isShow: false,
-    affairsList: [
-      { name: '活动1', id: 0 },
-      { name: '活动2', id: 1 },
-      { name: '活动3', id: 2 },
-      { name: '活动4', id: 3 },
-      { name: '活动5', id: 4 },
-      { name: '活动6', id: 5 },
-      { name: '活动7', id: 6 },
-      { name: '活动8', id: 7 }
-    ],
-    acTitle: '活动1',
-    acStart_time: '2019/05/01',
-    acEnd_time: '2019/05/04',
-    acLocation: '上海市杨浦区军工路516号校门口',
-    acOrg:'社区',
-    acThreshold:'100',
-    acBonus:'1',
-    acContent:'一二三四五六七八九十一二三四五六七八九十一二三四五六七八九十一二三四五六七八九十一二三四五六七八九十一二三四五六七八九十一二三四五六七八九十一二三四五六七八九十一二三四五六七八九十一二三四五六七八九十一二三四五六七八九十一二三四五六七八九十一二三四五六七八九十一二三四五六七八九十一二三四五六七八九十一二三四五六七八九十一二三四五六七八九十一二三四五六七八九十一二三四五六七八九十一二三四五六七八九十'
-  },
-  //自定义
-  showDetail: function () {
-    this.setData({
-      isShow:true
-    });
-  },
-  hide: function () {
-    this.setData({
-      isShow: false
-    })
-  },
-  tap: function (e) {
-    console.log(e)
-    if (e.target.id == 'tap') {
-      this.hide();
-    }
-  },
-  agree: function () {
-    var that = this
-    wx.showModal({
-      title: '确认通过该活动的申请？',
-      content: '注意：审核结果将无法撤销',
-      success: function (res) {
-        if (res.confirm) {
-          that.hide()
-        }
-        else {
-
-        }
-      }
-    })
-  },
-  disagree: function () {
-    var that = this
-    wx.showModal({
-      title: '确认不通过该活动的申请？',
-      content: '注意：审核结果将无法撤销',
-      success: function (res) {
-        if (res.confirm) {
-          that.hide()
-        }
-        else {
-
-        }
-      }
-    })
+    cout: 0,
+    affairsList: [],
+    acTitle: '',
+    acStart_time: '',
+    acEnd_time: '',
+    acLocation: '',
+    acOrg:'',
+    acThreshold:'',
+    acBonus:'',
+    acContent:''
   },
   /**
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
+    if (this.data.cout == 0) {
+      this.loadaffairs();
+    }
   },
 
   /**
@@ -131,5 +79,112 @@ Page({
    */
   onShareAppMessage: function () {
 
-  }
+  },
+  //自定义
+  loadaffairs: function (e) {
+    wx.showToast({
+      title: '加载中',
+      icon: 'loading',
+      duration: 1000
+    })
+    this.setData({
+      affairsList: [],
+    });
+    var that = this;
+    var formatDa = rq.requestFormat(JSON.stringify(this.data))
+    //活动审核申请路径
+    var url = app.globalData.domain + '/community/verifylist'
+    rq.requestBase(url, formatDa, this.successFunc)
+  },
+  successFunc: function (e) {
+    var old = this.data.affairsList;
+    var that = this
+    wx.hideToast();
+    this.setData({
+      'affairsList': old.concat(e.data)
+    })
+    that.setData({
+      cout: e.data.length,
+    })
+    wx.setStorageSync('questionCout', e.data.length)
+    //console.log(that.data.cout);
+    let _resmsg = '-- 没有数据啦 (*・ω・) --';
+    that.setData({
+      resmsg: _resmsg
+    })
+  },
+  showDetail: function (e) {
+    var that = this
+    console.log(e)
+    this.setData({
+      isShow: true,
+      current: e.currentTarget.id
+    })
+    var url = app.globalData.domain + '/community/detail/' + e.currentTarget.id
+    wx.request({
+      url: url,
+      method: 'GET',
+      success: function (res) {
+        console.log(res);
+        that.setData({
+          acTitle: res.data.acTitle,
+          acStart_time: res.data.acstartTime,
+          acEnd_time: res.data.acendTime,
+          acLocation: res.data.acLocation,
+          acOrg: res.data.acOrg,
+          acThreshold: res.data.acThreshold,
+          acBonus: res.data.acBonus,
+          acContent: res.data.acContent,
+          acCredit: res.data.accredit
+        })
+      }
+    })
+  },
+  hide: function () {
+    this.setData({
+      isShow: false
+    })
+  },
+  tap: function (e) {
+    console.log(e)
+    if (e.target.id == 'tap') {
+      this.hide();
+    }
+  },
+  agree: function () {
+    var that = this
+    wx.showModal({
+      title: '确认通过该活动的申请？',
+      content: '注意：审核结果将无法撤销',
+      success: function (res) {
+        if (res.confirm) {
+          var url = app.globalData.domain + '/community/permit/' + that.data.current;
+          wx.request({
+            url: url,
+            method: 'POST',
+            success: function (res) {
+              console.log('审核通过')
+              that.hide()
+              that.loadaffairs();
+            }
+          })
+        }
+      }
+    })
+  },
+  disagree: function () {
+    var that = this
+    wx.showModal({
+      title: '确认不通过该活动的申请？',
+      content: '注意：审核结果将无法撤销',
+      success: function (res) {
+        if (res.confirm) {
+          that.hide()
+        }
+        else {
+
+        }
+      }
+    })
+  }  
 })

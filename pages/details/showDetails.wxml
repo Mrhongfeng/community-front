@@ -26,11 +26,11 @@
       <view>本活动举办单位 {{orgType}}</view>
       <view class="bottom-border-1"></view>
       <view class="title">活动简介</view>
-      <view>一二三四五六七八九十一二三四五六七八九十一二三四五六七八九十一二三四五六七八九十一二三四五六七八九十一二三四五六七八九十一二三四五六七八九十一二三四五六七八九十一二三四五六七八九十一二三四五六七八九十一二三四五六七八九十一二三四五六七八九十一二三四五六七八九十一二三四五六七八九十一二三四五六七八九十一二三四五六七八九十一二三四五六七八九十一二三四五六七八九十一二三四五六七八九十一二三四五六七八九十</view>
+      <view>{{resume}}</view>
     </view>
     <view wx:if="{{current==1}}">
       <view class="title">活动时间范围</view>
-      <view>活动时间 {{startPartTime}} - {{endPartTime}}</view>
+      <view>活动时间 {{start}} 至 {{end}}</view>
       <view class="bottom-border-1"></view>
       <view class="title">活动地点</view>
       <view>本次活动地点安排在{{location}}</view>
@@ -57,5 +57,5 @@
       </view>
     </view>
   </view>
-  <view class="button">我要报名</view>
+  <view class="button">{{buttonType}}</view>
 </view>

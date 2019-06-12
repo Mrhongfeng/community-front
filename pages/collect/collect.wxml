@@ -6,19 +6,54 @@
       <view class="separate"></view>
     </view>
     <view class="showPanel">
-      <view class="showContent" wx:for="{{affairsList}}" wx:key="index" bindtap="showDetail" bindlongtap="up" id="{{index}}" animation="{{up}}">
+      <view class="showContent" wx:for="{{affairsList}}" wx:key="index" bindtap="showDetail" id="{{item.id}}" animation="{{up}}">
         <view class="img">
           <image style="width:100%;height:100%" src="/images/add.png"></image>
         </view>
         <view class="info">
           <view class="act-name">
-            {{item.name}}
+            {{item.acTitle}}
           </view>
           <view class="act-time">
-            2018.01.01 至 2019.01.01
+            {{item.acstartTime}} 至 {{item.acendTime}}
           </view> 
         </view>
       </view>
     </view>
   </view>
 </view>
+
+<view class="notice" id="tap" wx:if="{{isShow}}" bindtap="tap">
+        <view class="box">
+          <view class="box-hd">
+            <text class="box-title" style="width: 80%;margin-top:10rpx;text-align:center">{{acTitle}}</text>
+            <icon class="box-close" type='cancel' bindtap='hide'></icon>
+          </view>
+          <view class="box-bd" style="max-height:800rpx;overflow:scroll;margin-bottom: 20rpx">
+            <view class="notice-q">时间</view>
+            <view class="notice-a">
+              <text>{{acstartTime}} 至 {{acendTime}}</text>
+            </view>
+            <view class="notice-q">地点</view>
+            <view class="notice-a">
+              <text>{{acLocation}}</text>
+            </view>
+            <view class="notice-q">组织形式</view>
+            <view class="notice-a">
+              <text>{{acOrg}}</text>
+            </view>
+            <view class="notice-q">积分门槛</view>
+            <view class="notice-a">
+              <text>{{accredit}}</text>
+            </view>
+            <view class="notice-q">积分奖励</view>
+            <view class="notice-a">
+              <text>{{acBonus}}</text>
+            </view>
+            <view class="notice-q">活动内容</view>
+            <view class="notice-a">
+              <text>{{acContent}}</text>
+            </view>
+          </view>
+        </view>
+      </view>

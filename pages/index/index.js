@@ -22,13 +22,12 @@ Page({
 
     },
     affairsList: [],
-    list: "",
     //search文本
     inputShowed: false,//初始不显示
     inputVal: "",//search输入
     //tab标签
     tab: ['进行中','已结束','已报名'],
-    current: 0,
+    current: 0
   },
   /**
    * 生命周期函数--监听页面加载
@@ -48,11 +47,6 @@ Page({
    */
   onShow: function (res) {
     app.slideright(this, 'slide', -400, 1);
-    if(typeof this.getTabBar=='function' && this.getTabBar()){
-      this.getTabBar().setData({
-        selected: 0
-      })
-    }
     //app.coolsite360.onShow(this);
     if (this.data.cout == 0) {
       this.loadaffairs();
@@ -131,19 +125,17 @@ Page({
     }
     this.setData({
       current: index,
-      affairsList: [
-        // {
-        //   name:'哈哈哈哈哈哈哈哈哈哈或或或或或或或或或或或',
-        //   actid: '100',
-        //   imgurl:'../../images/myself_false.png',
-        //   start_time: '2019-04-01',
-        //   end_time: '2019-04-02',
-        // },
-      ],
+      affairsList: [],
     });
     var that = this;
-    var formatDa = rq.requestFormat(JSON.stringify(this.data.s))
-    var url = app.globalData.domain + '/community/list'
+    var formatDa = rq.requestFormat(JSON.stringify(this.data.current))//传送当前类型current
+    console.log(formatDa)
+    var url = app.globalData.domain + '/community/holdinglist'
+    if(formatDa.type==1){
+      url = app.globalData.domain + '/community/endlist'
+    }
+    else if(formatDa.type==2)
+      url = app.globalData.domain + '/community/wxuseractivity/myactivity/1'
     rq.requestBase(url,formatDa ,this.successFunc)
   },
   //详情浏览
@@ -152,8 +144,10 @@ Page({
     this.setData({
       valida : e.currentTarget.id,
     })
+    //跳转
+    var user=wx.getStorageSync("id")
     wx.navigateTo({
-      url: '../details/showDetails?id=' + e.currentTarget.id,
+      url: '../details/showDetails?id=' + e.currentTarget.id+'&current='+this.data.current+'&user='+user,
     })
   },
   successFunc: function (e) {
@@ -175,10 +169,10 @@ Page({
   },
 
   onReachBottom: function () {
-    var that = this
-    that.setData({
-      "pagination.current": that.data.pagination.current + 1
-    });
+    // var that = this
+    // that.setData({
+    //   "pagination.current": that.data.pagination.current + 1
+    // });
   },
 
   searchClick: function (e) {

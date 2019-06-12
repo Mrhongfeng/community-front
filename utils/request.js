@@ -47,9 +47,10 @@ module.exports = {
 function requestFormat(data) {
   var formatData = {}
   // console.log("requestFormat");
-  //console.log(data);
+  console.log(data);//传送当前类型type
   formatData.encode = new fun_base64.Base64().encode(data)
   formatData.md5 = fun_md5.hex_md5(formatData.encode + wx.getStorageSync('randomKey'))
+  formatData.type = data
   return formatData
 }
 //基本request请求
@@ -71,7 +72,6 @@ function requestBase(url, formatData, func) {
 
     success: function (res) {
       func(res)
-      // console.log('success')
     },
     fail: function (res) {
       console.log('submit fail');
