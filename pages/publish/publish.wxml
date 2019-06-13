@@ -90,7 +90,7 @@
     </view>
     <view wx:if="{{isSrc}}" class="image_box">
       <view class="picPre" bindtap="clearPic">
-        <image src="{{src}}" mode="aspectFit"></image>
+        <image src="{{image.imageUrl}}" mode="aspectFit"></image>
       </view>
     </view>
     <view class="mod-a mt20"></view>

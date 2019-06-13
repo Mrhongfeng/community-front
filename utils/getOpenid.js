@@ -29,7 +29,7 @@ const WXBaseStore = {
                 //step2: 获取openid相关信息：调用wx.request
                 wx.request({
                   //url: 'https://api.weixin.qq.com/sns/jscode2session',
-                  url: app.globalData.domain + '/auth/Wxuser/decodeUserInfo',
+                  url: app.globalData.domain + '/community/Wxuser/decodeUserInfo',
                   data: {
                     encryptedData: res.encryptedData,
                     iv: res.iv,

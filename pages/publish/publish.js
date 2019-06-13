@@ -29,7 +29,9 @@ Page({
       acState:"0",
       accredit:""
     },
-    src:"",
+    image:{
+      imageUrl:""
+    },
     notice_status: false,
     isAgree: false,
     sdate: formate_data(myDate),
@@ -204,11 +206,12 @@ Page({
       sizeType: ['original', 'compressed'], // 可以指定是原图还是压缩图，默认二者都有
       sourceType: ['album', 'camera'], // 可以指定来源是相册还是相机，默认二者都有
       success: function (res) {
+        console.log(res)
         that.setData({
           isSrc: true,
-          src: res.tempFilePaths[0]
+          'image.imageUrl': res.tempFilePaths[0]
         })
-        console.log("图片：：" + src);
+        console.log("图片：：" + that.data.image.imageUrl);
       }
     })
   },
@@ -216,13 +219,13 @@ Page({
   clearPic: function () {//删除图片
     that.setData({
       isSrc: false,
-      src: "https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1557941134694&di=3f8957456fde40982e5d0efc3643249a&imgtype=0&src=http%3A%2F%2Fb-ssl.duitang.com%2Fuploads%2Fitem%2F201706%2F06%2F20170606171105_cdj83.png"
+      'image.imageUrl': ""
     })
   },
 
   //提交表单
   submitForm: function (e) {
-    console.log("图片:" + src);
+    console.log("图片:" + this.data.image.imageUrl);
 
     console.log(e)
     var that = this;
@@ -255,6 +258,40 @@ Page({
 
     var url = app.globalData.domain + '/community/add'
     rq.requestPost(url, this.data.formData, this.successFunc)
+
+    var d = rq.requestFormat(JSON.stringify(that.data.formData))
+    // 返回选定照片的本地文件路径列表，tempFilePath可以作为img标签的src属性显示图片
+    wx.uploadFile({
+      url: app.globalData.domain + '/community/upLoadPicture',
+      filePath: that.data.image.imageUrl,
+      name: 'first_image',
+      header: {
+        'Authorization': "Bearer " + wx.getStorageSync('token'),
+        'content-type': 'multipart/form-data'
+      },
+      formData: {
+        // fileName: '',
+        // filePath: '',
+        acTitle: that.data.formData.acTitle,
+        acContent: that.data.formData.acContent,
+        object: d.encode,
+        sign: d.md5,
+      },
+      success: function (e) {
+        console.log("成功：");
+        console.log(e)
+        if (e) {
+          wx.showToast({
+            title: '保存成功',
+            icon: 'success',
+            duration: 2000
+          })
+        }
+      },
+      fail: function (e) {
+        console.log('图片保存失败')
+      }
+    })
   },
 
   successFunc:function(res){
